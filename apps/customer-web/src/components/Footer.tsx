@@ -71,87 +71,34 @@ export function Footer({ locale }: FooterProps) {
   ];
 
   return (
-    <footer
-      className="
-    relative
-    mt-auto
-    overflow-hidden
-    bg-gradient-to-br
-    from-[#a90062]
-    via-[#d00072]
-    to-[#ff1687]
-    pt-8
-    sm:pt-10
-    pb-8
-    px-4
-    sm:px-6
-  "
-    >
+    <footer className="relative mt-auto overflow-hidden bg-gradient-to-br from-[#a90062] via-[#d00072] to-[#ff1687] pt-10 sm:pt-12 pb-10 px-4 sm:px-6 lg:px-8">
       {/* =====================================================
-      MAIN WHITE FOOTER CARD
-  ====================================================== */}
-      <div
-        className="
-      relative
-      mx-auto
-      w-full
-      max-w-[905px]
-      min-h-[330px]
-      rounded-[30px]
-      bg-[#fffdfc]
-      px-7
-      py-8
-      sm:px-8
-      sm:py-9
-    "
-      >
-        <div
-          className="
-        grid
-        grid-cols-1
-        sm:grid-cols-2
-        lg:grid-cols-[1.15fr_0.75fr_0.95fr_1.15fr]
-        gap-x-8
-        gap-y-8
-        h-full
-      "
-        >
-
+          MAIN WHITE FOOTER CARD matching Figma Frame 2035:1436 (1132px)
+      ====================================================== */}
+      <div className="relative mx-auto w-full max-w-[1132px] min-h-[330px] rounded-[30px] bg-[#fffdfc] px-6 sm:px-9 py-8 sm:py-9 shadow-2xl border border-white/60">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.15fr_0.8fr_1fr_1.15fr] gap-8 lg:gap-10 h-full items-start">
           {/* =================================================
-          COLUMN 1 — LOGO + SOCIAL
-      ================================================== */}
-          <div className="flex flex-col items-start">
-
+              COLUMN 1 — LOGO + SOCIAL
+          ================================================== */}
+          <div className="flex flex-col items-start space-y-4">
             {/* Logo */}
-            <div className="relative w-[215px] h-[70px]">
+            <div className="relative w-[215px] h-[64px]">
               <Image
                 src="/images/logo.png"
                 alt="Bus Arabia"
                 fill
-                className="object-contain object-left"
+                className="object-contain ltr:object-left rtl:object-right"
               />
             </div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-2 mt-3 flex-wrap">
+            {/* 6 Circular Gold Social Buttons from Figma */}
+            <div className="flex items-center gap-2 flex-wrap">
               {socialLinks.map((s) => (
                 <a
                   key={s.name}
                   href={s.href}
                   aria-label={s.name}
-                  className="
-                w-[29px]
-                h-[29px]
-                rounded-full
-                bg-[#ffe47b]
-                text-[#171717]
-                flex
-                items-center
-                justify-center
-                hover:bg-[#f5d65c]
-                hover:scale-105
-                transition-all
-              "
+                  className="w-8 h-8 rounded-full bg-[#ffe47b] text-[#171717] flex items-center justify-center hover:bg-[#f5d65c] hover:scale-105 transition-all shadow-xs"
                 >
                   {s.icon}
                 </a>
@@ -159,246 +106,112 @@ export function Footer({ locale }: FooterProps) {
             </div>
           </div>
 
-
           {/* =================================================
-          COLUMN 2 — COMPANY
-      ================================================== */}
+              COLUMN 2 — COMPANY LINKS
+          ================================================== */}
           <div>
             <h4
-              className="
-            text-[16px]
-            font-extrabold
-            text-[#171717]
-            mb-3
-          "
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-              }}
+              className="text-base font-extrabold text-[#171717] mb-3"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               {t.footer.company}
             </h4>
 
-            <ul
-              className="
-            space-y-2.5
-            text-[14px]
-            leading-[1.25]
-            font-medium
-            text-[#5c5056]
-          "
-            >
+            <ul className="space-y-2.5 text-sm leading-[1.25] font-medium text-[#5c5056]">
               <li>
-                <a
-                  href="#about"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#about" className="hover:text-[#b20163] transition-colors">
                   {t.footer.aboutUs}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#contact"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#contact" className="hover:text-[#b20163] transition-colors">
                   {t.footer.contactUs}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#faq"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#faq" className="hover:text-[#b20163] transition-colors">
                   {t.footer.faq}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#operators"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#operators" className="hover:text-[#b20163] transition-colors">
                   {t.footer.ourBusOperators}
                 </a>
               </li>
             </ul>
           </div>
 
-
           {/* =================================================
-          COLUMN 3 — INFORMATION
-      ================================================== */}
+              COLUMN 3 — INFORMATION LINKS
+          ================================================== */}
           <div>
             <h4
-              className="
-            text-[16px]
-            font-extrabold
-            text-[#171717]
-            mb-3
-          "
-              style={{
-                fontFamily: "'Montserrat', sans-serif",
-              }}
+              className="text-base font-extrabold text-[#171717] mb-3"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               {t.footer.information}
             </h4>
 
-            <ul
-              className="
-            space-y-2.5
-            text-[14px]
-            leading-[1.15]
-            font-medium
-            text-[#5c5056]
-          "
-            >
+            <ul className="space-y-2.5 text-sm leading-[1.25] font-medium text-[#5c5056]">
               <li>
-                <a
-                  href="#privacy"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#privacy" className="hover:text-[#b20163] transition-colors">
                   {t.footer.privacyPolicy}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#terms"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#terms" className="hover:text-[#b20163] transition-colors">
                   {t.footer.termsOfService}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#cancellation"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#cancellation" className="hover:text-[#b20163] transition-colors">
                   {t.footer.cancellationPolicy}
                 </a>
               </li>
-
               <li>
-                <a
-                  href="#cookies"
-                  className="hover:text-[#b20163] transition-colors"
-                >
+                <a href="#cookies" className="hover:text-[#b20163] transition-colors">
                   {t.footer.cookiePolicy}
                 </a>
               </li>
             </ul>
           </div>
 
-
           {/* =================================================
-          COLUMN 4 — PAYMENTS
-      ================================================== */}
-          <div className="flex flex-col items-start">
-
+              COLUMN 4 — PAYMENTS & OPERATOR LOGIN
+          ================================================== */}
+          <div className="flex flex-col items-start justify-between h-full space-y-4">
             {/* Payment Asset */}
-            <div
-              className="
-            relative
-            w-full
-            max-w-[225px]
-            h-[220px]
-          "
-            >
+            <div className="relative w-full max-w-[240px] h-[190px]">
               <Image
                 src="/images/payments-grid.png"
                 alt="We Accept Visa, Mada, STC Pay, Mastercard, American Express, Google Pay, Samsung Pay, Apple Pay, Union Pay"
                 fill
-                className="object-contain object-left-top"
+                className="object-contain ltr:object-left rtl:object-right"
               />
             </div>
 
-            {/* Operator Login */}
+            {/* Operator Login Button */}
             <a
               href="#operator-portal"
-              className="
-            -mt-2
-            inline-flex
-            items-center
-            justify-center
-            gap-1.5
-            w-fit
-            px-3
-            py-1.5
-            rounded-full
-            bg-gradient-to-r
-            from-[#ffe26d]
-            via-[#fdea9d]
-            to-[#d9b747]
-            text-[#171717]
-            text-[9px]
-            sm:text-[10px]
-            font-bold
-            shadow-sm
-            hover:brightness-105
-            transition-all
-          "
+              className="inline-flex items-center justify-center gap-2 w-fit px-4 py-2 rounded-full bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] text-[#171717] text-xs sm:text-sm font-bold shadow-sm hover:brightness-105 transition-all cursor-pointer group/btn"
             >
-              <span>
-                {t.footer.operatorLogin}
-              </span>
-
-              <span
-                className="
-              flex
-              items-center
-              justify-center
-              w-[17px]
-              h-[17px]
-              rounded-full
-              bg-[#171717]
-              text-white
-            "
-              >
-                <ArrowRight className="w-[9px] h-[9px]" />
+              <span>{t.footer.operatorLogin}</span>
+              <span className="flex items-center justify-center w-5 h-5 rounded-full bg-[#171717] text-white">
+                <ArrowRight className="w-3 h-3 rtl:rotate-180 transition-transform group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5" />
               </span>
             </a>
           </div>
-
         </div>
       </div>
 
-
       {/* =====================================================
-      COPYRIGHT
-  ====================================================== */}
-      <div
-        className="
-      mx-auto
-      max-w-[905px]
-      pt-7
-      sm:pt-8
-      text-center
-      text-white
-    "
-      >
-        <p
-          className="
-        text-[12px]
-        sm:text-[13px]
-        font-medium
-        tracking-wide
-      "
-        >
+          COPYRIGHT & UNIFIED NATIONAL NUMBER
+      ====================================================== */}
+      <div className="mx-auto max-w-[1132px] pt-7 sm:pt-8 text-center text-white space-y-2">
+        <p className="text-xs sm:text-sm font-medium tracking-wide text-white/90">
           {t.footer.copyright}
         </p>
-
-        <p
-          className="
-        mt-5
-        text-[12px]
-        sm:text-[13px]
-        font-medium
-        tracking-wide
-        text-white
-      "
-        >
+        <p className="text-xs sm:text-sm font-bold tracking-wider text-[#ffe47b]">
           {t.footer.unifiedNumber}
         </p>
       </div>
