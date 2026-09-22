@@ -57,15 +57,17 @@ export function HeroSearch({ locale, onSearch }: HeroSearchProps) {
   };
 
   return (
-    <section className="relative w-full overflow-hidden">
+    <section className="relative w-full overflow-hidden pb-16">
       {/* Background Hero Banner with High Fidelity Art Direction */}
-      <div className="relative min-h-[460px] sm:min-h-[500px] lg:min-h-[540px] w-full">
+      <div className="relative w-full h-[580px] sm:h-[660px] lg:h-[760px] overflow-hidden">
         <Image
-          src={locale === 'ar' ? '/images/hero-bg-ar.png' : '/images/hero-bg.png'}
+          src="/images/hero-bus-clean.png"
           alt="Bus Arabia Luxury Travel"
           fill
           priority
-          className="object-cover object-top select-none pointer-events-none"
+          className={`object-cover object-top sm:object-center select-none pointer-events-none ${
+            locale === 'ar' ? '-scale-x-100' : ''
+          }`}
         />
 
         {/* Soft bottom white gradient to blend smoothly into page */}

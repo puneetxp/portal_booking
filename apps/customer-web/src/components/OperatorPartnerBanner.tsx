@@ -20,7 +20,7 @@ export function OperatorPartnerBanner({ locale }: OperatorPartnerBannerProps) {
         <div
           className={`absolute inset-y-0 ${
             isAr ? 'left-0' : 'right-0'
-          } w-full lg:w-[62%] h-full overflow-hidden`}
+          } w-full lg:w-[58%] h-full overflow-hidden`}
         >
           <Image
             src="/images/operator-bus-only.png"
@@ -32,12 +32,12 @@ export function OperatorPartnerBanner({ locale }: OperatorPartnerBannerProps) {
             priority
           />
 
-          {/* Gradient blend so text is always 100% readable */}
+          {/* Gradient blend so text is always 100% readable and baked-in text is completely masked */}
           <div
             className={`absolute inset-0 ${
               isAr
-                ? 'bg-gradient-to-l from-[#8a003f] from-10% via-[#a80058] via-45% to-transparent'
-                : 'bg-gradient-to-r from-[#8a003f] from-10% via-[#a80058] via-45% to-transparent'
+                ? 'bg-gradient-to-l from-[#8a003f] from-30% via-[#a80058] via-55% to-transparent'
+                : 'bg-gradient-to-r from-[#8a003f] from-30% via-[#a80058] via-55% to-transparent'
             }`}
           />
         </div>

@@ -14,13 +14,13 @@ export function TicketCalloutBanner({ locale }: TicketCalloutBannerProps) {
   const isAr = locale === 'ar';
 
   return (
-    <section className="w-full py-4 sm:py-6 px-0">
-      <div className="relative w-full overflow-hidden bg-gradient-to-r from-[#a90062] via-[#c5006d] to-[#ff1687] shadow-lg">
-        <div className="flex flex-col sm:flex-row items-center min-h-[140px] sm:h-[155px] lg:h-[160px]">
+    <section className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-rose-900/10 bg-gradient-to-r from-[#950250] via-[#b20163] to-[#fa1590] group">
+        <div className="flex flex-col lg:flex-row items-center justify-between min-h-[120px] lg:h-[130px] p-3 sm:p-4 lg:p-0">
           {/* 1. Left (LTR) / Right (RTL): Clean Coach Bus Photo */}
           <div
-            className={`relative w-full sm:w-[32%] h-36 sm:h-full flex-shrink-0 overflow-hidden ${
-              isAr ? 'sm:order-2' : 'sm:order-1'
+            className={`relative w-full lg:w-[38%] h-36 sm:h-44 lg:h-full flex-shrink-0 overflow-hidden ${
+              isAr ? 'lg:order-2' : 'lg:order-1'
             }`}
           >
             <Image
@@ -30,21 +30,12 @@ export function TicketCalloutBanner({ locale }: TicketCalloutBannerProps) {
               className={`object-cover object-center ${isAr ? '-scale-x-100' : ''}`}
               priority
             />
-
-            {/* Slanted transition blend on larger screens */}
-            <div
-              className={`hidden sm:block absolute top-0 h-full w-24 z-10 bg-gradient-to-r from-transparent via-[#b20163] to-[#b20163] ${
-                isAr ? 'left-[-1px]' : 'right-[-1px]'
-              }`}
-            />
           </div>
 
           {/* 2. White Slanted Ticket Ribbon Container */}
           <div
-            className={`relative z-20 w-full sm:w-[68%] bg-white py-4 px-5 sm:px-8 lg:px-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-6 shadow-sm sm:h-[84%] sm:my-auto rounded-none ${
-              isAr
-                ? 'sm:order-1 sm:rounded-r-xl'
-                : 'sm:order-2 sm:rounded-l-xl'
+            className={`relative w-full lg:w-[62%] bg-white rounded-xl lg:rounded-l-3xl lg:rounded-r-none py-4 px-5 sm:px-8 lg:px-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 shadow-lg lg:h-[88%] lg:my-auto ${
+              isAr ? 'lg:order-1 lg:rounded-r-3xl lg:rounded-l-none' : 'lg:order-2'
             }`}
           >
             {/* Semantic Text Content */}

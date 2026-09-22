@@ -15,34 +15,29 @@ export function MakkahPackages({ locale }: MakkahPackagesProps) {
 
   return (
     <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-[#a90060] text-white border border-rose-950/20 group min-h-[360px] sm:min-h-[420px] lg:min-h-[460px]">
-        {/* Background Image Layer */}
-        <div className="absolute inset-0">
+      <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-gradient-to-r from-[#6e0037] via-[#8c0047] to-[#b20163] text-white border border-rose-950/20 group min-h-[360px] sm:min-h-[420px] lg:min-h-[460px]">
+        {/* Background Visual Asset Layer (Holy Kaaba & Prophet's Mosque) */}
+        <div
+          className={`absolute inset-y-0 ${
+            isAr ? 'left-0' : 'right-0'
+          } w-full lg:w-[64%] h-full overflow-hidden`}
+        >
           <Image
             src="/images/test-261.png"
             alt="Holy Kaaba and Prophet's Mosque"
             fill
             className={`object-cover ${
               isAr ? 'object-left -scale-x-100' : 'object-right'
-            } select-none group-hover:scale-[1.02] transition-transform duration-700`}
+            } select-none opacity-90 group-hover:scale-[1.02] transition-transform duration-700`}
             priority
           />
 
-          {/* Explicit gradient classes to prevent purge */}
+          {/* Solid gradient covering the text side so only the holy sanctuary photo shines through */}
           <div
             className={`absolute inset-0 ${
               isAr
-                ? 'bg-gradient-to-l from-[#a90060] via-[#a90060]/95 via-40% to-transparent to-70%'
-                : 'bg-gradient-to-r from-[#a90060] via-[#a90060]/95 via-40% to-transparent to-70%'
-            }`}
-          />
-
-          {/* Soft overlay for text contrast */}
-          <div
-            className={`absolute inset-0 ${
-              isAr
-                ? 'bg-gradient-to-l from-[#8f0053]/80 via-transparent to-transparent'
-                : 'bg-gradient-to-r from-[#8f0053]/80 via-transparent to-transparent'
+                ? 'bg-gradient-to-l from-[#6e0037] from-35% via-[#8c0047] via-55% to-transparent'
+                : 'bg-gradient-to-r from-[#6e0037] from-35% via-[#8c0047] via-55% to-transparent'
             }`}
           />
         </div>
