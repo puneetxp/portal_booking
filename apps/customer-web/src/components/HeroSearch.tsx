@@ -61,7 +61,7 @@ export function HeroSearch({ locale, onSearch }: HeroSearchProps) {
       {/* Background Hero Banner with High Fidelity Art Direction */}
       <div className="relative min-h-[460px] sm:min-h-[500px] lg:min-h-[540px] w-full">
         <Image
-          src="/images/hero-banner-new.png"
+          src={locale === 'ar' ? '/images/hero-bg-ar.png' : '/images/hero-bg.png'}
           alt="Bus Arabia Luxury Travel"
           fill
           priority

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Locale, translations } from '@/lib/translations';
 
 interface NavbarProps {
@@ -34,7 +35,7 @@ export function Navbar({ locale, onToggleLocale }: NavbarProps) {
         <div className="h-20 flex items-center justify-between">
           {/* Left Group: Brand Logo + Navigation Links */}
           <div className="flex items-center gap-7 lg:gap-9">
-            <a href="#" className="flex items-center flex-shrink-0">
+            <Link href="/" className="flex items-center flex-shrink-0">
               <div className="relative h-11 w-36 sm:w-42">
                 <Image
                   src="/images/logo.png"
@@ -44,26 +45,25 @@ export function Navbar({ locale, onToggleLocale }: NavbarProps) {
                   priority
                 />
               </div>
-            </a>
+            </Link>
 
             {/* Navigation Links (1574:3063) */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-7 text-xs sm:text-[13px] font-['Montserrat',sans-serif] font-medium text-[#554149]">
-              <a href="#about" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
+              <Link href="/about" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
                 {t.nav.aboutUs}
-              </a>
-              <a
-                href="#operators"
-                className="text-[#b20163] font-semibold relative py-1 whitespace-nowrap"
+              </Link>
+              <Link
+                href="/operators"
+                className="hover:text-[#b20163] transition-colors whitespace-nowrap"
               >
                 {t.nav.ourBusOperators}
-                <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#b20163] rounded-full" />
-              </a>
-              <a href="#faq" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
+              </Link>
+              <Link href="/faq" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
                 {t.nav.faq}
-              </a>
-              <a href="#contact" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
+              </Link>
+              <Link href="/contact" className="hover:text-[#b20163] transition-colors whitespace-nowrap">
                 {t.nav.contactUs}
-              </a>
+              </Link>
             </nav>
           </div>
 
@@ -94,12 +94,12 @@ export function Navbar({ locale, onToggleLocale }: NavbarProps) {
             </div>
 
             {/* Gold Book Now CTA Button matching Frame 3681 (1574:3088) */}
-            <a
-              href="#search-box"
+            <Link
+              href="/#search-box"
               className="inline-flex items-center justify-center px-5 sm:px-7 py-2.5 text-xs sm:text-sm font-['Inter',sans-serif] font-semibold text-[#1c1b1b] bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] hover:brightness-105 rounded-full shadow-[0_4px_4px_rgba(0,0,0,0.08)] hover:shadow-md transition-all cursor-pointer whitespace-nowrap"
             >
               {t.nav.bookNow}
-            </a>
+            </Link>
 
             {/* Sign in / Sign up button matching Figma 1574:3090 */}
             <a

@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Locale, translations } from '@/lib/translations';
 import { ArrowRight } from 'lucide-react';
 
@@ -119,24 +120,24 @@ export function Footer({ locale }: FooterProps) {
 
             <ul className="space-y-2.5 text-sm leading-[1.25] font-medium text-[#5c5056]">
               <li>
-                <a href="#about" className="hover:text-[#b20163] transition-colors">
+                <Link href="/about" className="hover:text-[#b20163] transition-colors">
                   {t.footer.aboutUs}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#contact" className="hover:text-[#b20163] transition-colors">
+                <Link href="/contact" className="hover:text-[#b20163] transition-colors">
                   {t.footer.contactUs}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#faq" className="hover:text-[#b20163] transition-colors">
+                <Link href="/faq" className="hover:text-[#b20163] transition-colors">
                   {t.footer.faq}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#operators" className="hover:text-[#b20163] transition-colors">
+                <Link href="/operators" className="hover:text-[#b20163] transition-colors">
                   {t.footer.ourBusOperators}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -154,24 +155,24 @@ export function Footer({ locale }: FooterProps) {
 
             <ul className="space-y-2.5 text-sm leading-[1.25] font-medium text-[#5c5056]">
               <li>
-                <a href="#privacy" className="hover:text-[#b20163] transition-colors">
+                <Link href="/privacy" className="hover:text-[#b20163] transition-colors">
                   {t.footer.privacyPolicy}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#terms" className="hover:text-[#b20163] transition-colors">
+                <Link href="/terms" className="hover:text-[#b20163] transition-colors">
                   {t.footer.termsOfService}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#cancellation" className="hover:text-[#b20163] transition-colors">
+                <Link href="/cancellation-policy" className="hover:text-[#b20163] transition-colors">
                   {t.footer.cancellationPolicy}
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#cookies" className="hover:text-[#b20163] transition-colors">
+                <Link href="/cookie-policy" className="hover:text-[#b20163] transition-colors">
                   {t.footer.cookiePolicy}
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
