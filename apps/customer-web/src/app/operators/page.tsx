@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { Locale } from '@/lib/translations';
-import { Navbar } from '@/components/Navbar';
+import { SubpageNavbar } from '@/components/SubpageNavbar';
 import { Footer } from '@/components/Footer';
 import { SubpageHero } from '@/components/SubpageHero';
 import { OPERATORS, Operator } from '@/lib/operators-data';
@@ -91,7 +91,7 @@ export default function OperatorsIndexPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fcf9f8] selection:bg-[#b20163] selection:text-white">
-      <Navbar locale={locale} onToggleLocale={toggleLocale} />
+      <SubpageNavbar locale={locale} onToggleLocale={toggleLocale} activeNav="operators" />
 
       <main className="flex-1">
         {/* Figma Subpage Hero Banner */}

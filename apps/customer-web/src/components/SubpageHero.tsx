@@ -28,7 +28,7 @@ export function SubpageHero({
   const isAr = locale === 'ar';
 
   return (
-    <div className="relative bg-gradient-to-br from-[#950250] via-[#b20163] to-[#550036] text-white pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-lg">
+    <div className="relative bg-gradient-to-br from-[#950250] via-[#b20163] to-[#550036] text-white pt-10 sm:pt-14 pb-12 sm:pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden shadow-md">
       {/* Decorative Background Patterns */}
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#ffe26d_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
       <div className="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-[#fa1590]/20 blur-3xl pointer-events-none" />

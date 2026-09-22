@@ -4,13 +4,22 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Locale, translations } from '@/lib/translations';
+import { SubpageNavbar } from './SubpageNavbar';
+
+export { SubpageNavbar };
 
 interface NavbarProps {
   locale: Locale;
   onToggleLocale: () => void;
+  variant?: 'home' | 'subpage';
+  activeNav?: 'about' | 'operators' | 'faq' | 'contact';
 }
 
-export function Navbar({ locale, onToggleLocale }: NavbarProps) {
+export function Navbar({ locale, onToggleLocale, variant = 'home', activeNav }: NavbarProps) {
+  if (variant === 'subpage') {
+    return <SubpageNavbar locale={locale} onToggleLocale={onToggleLocale} activeNav={activeNav} />;
+  }
+
   const t = translations[locale];
   const isAr = locale === 'ar';
   const [isScrolled, setIsScrolled] = useState(false);

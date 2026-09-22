@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Locale } from '@/lib/translations';
-import { Navbar } from '@/components/Navbar';
+import { SubpageNavbar } from '@/components/SubpageNavbar';
 import { Footer } from '@/components/Footer';
 import { SubpageHero } from '@/components/SubpageHero';
 import {
@@ -63,7 +63,7 @@ export default function ContactPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fcf9f8] selection:bg-[#b20163] selection:text-white">
-      <Navbar locale={locale} onToggleLocale={toggleLocale} />
+      <SubpageNavbar locale={locale} onToggleLocale={toggleLocale} activeNav="contact" />
 
       <main className="flex-1">
         {/* Figma Subpage Header */}
