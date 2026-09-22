@@ -15,56 +15,77 @@ export function MakkahPackages({ locale }: MakkahPackagesProps) {
 
   return (
     <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-gradient-to-r from-[#6e0037] via-[#8c0047] to-[#b20163] text-white border border-rose-950/20 group">
-        {/* Background Visual Asset Layer (Holy Kaaba & Prophet's Mosque) */}
-        <div
-          className={`absolute inset-y-0 ${
-            isAr ? 'left-0' : 'right-0'
-          } w-full lg:w-[64%] h-full overflow-hidden`}
-        >
+      <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-[#a90060] text-white border border-rose-950/20 group min-h-[360px] sm:min-h-[420px] lg:min-h-[460px]">
+        {/* Background Image Layer */}
+        <div className="absolute inset-0">
           <Image
             src="/images/test-261.png"
             alt="Holy Kaaba and Prophet's Mosque"
             fill
             className={`object-cover ${
               isAr ? 'object-left -scale-x-100' : 'object-right'
-            } select-none opacity-90 group-hover:scale-[1.02] transition-transform duration-700`}
+            } select-none group-hover:scale-[1.02] transition-transform duration-700`}
             priority
           />
-          {/* Solid gradient covering the text side so only the holy sanctuary photo shines through */}
+
+          {/* Explicit gradient classes to prevent purge */}
           <div
-            className={`absolute inset-0 bg-gradient-to-${
-              isAr ? 'l' : 'r'
-            } from-[#6e0037] from-35% via-[#8c0047] via-55% to-transparent`}
+            className={`absolute inset-0 ${
+              isAr
+                ? 'bg-gradient-to-l from-[#a90060] via-[#a90060]/95 via-40% to-transparent to-70%'
+                : 'bg-gradient-to-r from-[#a90060] via-[#a90060]/95 via-40% to-transparent to-70%'
+            }`}
+          />
+
+          {/* Soft overlay for text contrast */}
+          <div
+            className={`absolute inset-0 ${
+              isAr
+                ? 'bg-gradient-to-l from-[#8f0053]/80 via-transparent to-transparent'
+                : 'bg-gradient-to-r from-[#8f0053]/80 via-transparent to-transparent'
+            }`}
           />
         </div>
 
-        {/* Foreground Content Layer (Figma 1884:265, 1884:266, 1884:267) */}
-        <div className="relative z-10 py-10 sm:py-12 lg:py-16 px-6 sm:px-10 lg:px-14 flex flex-col justify-center max-w-xl">
+        {/* Foreground Content Layer */}
+        <div
+          className={`relative z-10 py-10 sm:py-12 lg:py-16 px-6 sm:px-10 lg:px-14 flex flex-col justify-center min-h-[360px] sm:min-h-[420px] lg:min-h-[460px] max-w-[600px] ${
+            isAr ? 'ml-auto text-right items-end' : 'text-left items-start'
+          }`}
+        >
+          {/* Title */}
           <h2
-            className={`text-2xl sm:text-4xl lg:text-[44px] font-black italic text-white leading-tight uppercase tracking-tight ${
-              isAr ? 'font-sans' : 'font-[\'Montserrat\',sans-serif]'
+            className={`uppercase font-black italic leading-[0.95] tracking-tight text-3xl sm:text-4xl lg:text-5xl ${
+              isAr ? 'font-sans' : "font-['Montserrat',sans-serif]"
             }`}
           >
-            {t.makkahBanner.title}
+            <span className="block text-[#ffe76a] drop-shadow-sm">
+              {t.makkahBanner.title}
+            </span>
           </h2>
 
+          {/* Subtitle */}
           <p
-            className={`text-xs sm:text-sm lg:text-base text-white/90 font-medium leading-relaxed max-w-md mt-3 ${
-              isAr ? 'font-sans' : 'font-[\'Montserrat\',sans-serif]'
+            className={`mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-white font-medium leading-snug max-w-[460px] ${
+              isAr ? 'font-sans' : "font-['Montserrat',sans-serif]"
             }`}
           >
             {t.makkahBanner.subtitle}
           </p>
 
+          {/* CTA */}
           <a
             href="#search-box"
-            className="mt-6 inline-flex items-center gap-2.5 px-6 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] text-[#1c1b1b] font-bold text-xs sm:text-sm lg:text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all w-fit group/btn cursor-pointer"
+            className="mt-6 inline-flex items-center gap-3 px-5 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#ffe76a] via-[#ffe98a] to-[#d9b747] text-[#181818] font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all w-fit group/btn cursor-pointer"
             aria-label={t.makkahBanner.title}
           >
             <span>{t.makkahBanner.cta}</span>
-            <div className="w-6 h-6 rounded-full bg-[#1c1b1b] text-[#ffe26d] flex items-center justify-center transition-transform group-hover/btn:translate-x-0.5 rtl:group-hover/btn:-translate-x-0.5">
-              {isAr ? <ArrowLeft className="w-3.5 h-3.5" /> : <ArrowRight className="w-3.5 h-3.5" />}
+            <div className="w-7 h-7 rounded-full bg-[#1c1b1b] text-[#ffe76a] flex items-center justify-center transition-transform group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1">
+              {isAr ? (
+                <ArrowLeft className="w-4 h-4" />
+              ) : (
+                <ArrowRight className="w-4 h-4" />
+              )}
             </div>
           </a>
         </div>
