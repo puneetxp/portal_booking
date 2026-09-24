@@ -220,8 +220,8 @@ export default function LoginPage() {
           <div className="h-4" />
         </div>
 
-        {/* RIGHT SECTION: The Dialog (Anchored on the Right with exact Figma Frame 3520 margins: Top: 15px, Right: 16px, Bottom: 15px) */}
-        <div className="w-full lg:w-[500px] xl:w-[520px] lg:fixed lg:right-4 lg:top-3.5 lg:bottom-3.5 lg:h-[calc(100vh-28px)] max-h-[828px] bg-[#fcf9f8] rounded-3xl border border-[#dbbfca]/60 shadow-2xl p-7 sm:p-9 lg:p-10 flex flex-col justify-between overflow-y-auto z-40">
+        {/* RIGHT SECTION: The Dialog (Anchored on the Right with exact Figma Frame 3520 margins: Top: 15px, Right: 16px, Bottom: 15px, Radius: 9-10px, No border stroke) */}
+        <div className="w-full lg:w-[500px] xl:w-[520px] lg:fixed lg:right-4 lg:top-3.5 lg:bottom-3.5 lg:h-[calc(100vh-28px)] max-h-[828px] bg-[#fcf9f8] rounded-[10px] shadow-[0_20px_50px_rgba(0,0,0,0.18)] p-7 sm:p-9 lg:p-10 flex flex-col justify-between overflow-y-auto z-40">
           
           <div className="flex-1 flex flex-col justify-center items-center text-center my-auto pt-4 pb-4">
             {/* Bus Arabia Ticket Logo (Figma 1694:61) */}
@@ -249,14 +249,14 @@ export default function LoginPage() {
                 </p>
 
                 <form onSubmit={handleSendOtp} className="w-full flex flex-col gap-5 text-left">
-                  {/* Mobile Number Label & Input */}
+                  {/* Mobile Number Label & Input (Figma 1724:2914) */}
                   <div className="flex flex-col gap-1.5">
                     <label className="text-sm font-bold text-[#4a002e]">
                       Mobile Number
                     </label>
                     <div className="flex items-center gap-3">
-                      {/* Saudi Flag + Country Code Pill */}
-                      <div className="flex items-center rounded-xl border border-[#dbbfca] overflow-hidden bg-white shadow-sm shrink-0">
+                      {/* Saudi Flag + Country Code Pill (Figma 1724:2915, Radius: 8px) */}
+                      <div className="flex items-center rounded-lg border border-[#dbbfca] overflow-hidden bg-white shadow-sm shrink-0">
                         <div className="flex items-center justify-center px-3 py-2.5 bg-white">
                           <Image
                             src="/images/saudi-flag.png"
@@ -271,24 +271,24 @@ export default function LoginPage() {
                         </div>
                       </div>
 
-                      {/* Number Input Box */}
+                      {/* Number Input Box (Figma 1724:2928, Radius: 8px) */}
                       <input
                         type="tel"
                         value={mobileNumber}
                         onChange={(e) => setMobileNumber(e.target.value.replace(/\D/g, ''))}
                         placeholder="567990235"
                         maxLength={9}
-                        className="flex-1 px-4 py-2.5 rounded-xl border border-[#dbbfca] bg-white text-base font-semibold text-[#1c1b1b] placeholder-[#88717a] shadow-sm outline-none focus:border-[#b20163] focus:ring-2 focus:ring-[#b20163]/20 transition-all"
+                        className="flex-1 px-4 py-2.5 rounded-lg border border-[#dbbfca] bg-white text-base font-semibold text-[#1c1b1b] placeholder-[#88717a] shadow-sm outline-none focus:border-[#b20163] focus:ring-2 focus:ring-[#b20163]/20 transition-all"
                       />
                     </div>
                     {error && <p className="text-xs text-red-600 font-semibold mt-1">{error}</p>}
                   </div>
 
-                  {/* Send OTP Button */}
+                  {/* Send OTP Button (Figma 1875:1554, Radius: 16px, Border: #DBBFCA) */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-full font-bold text-base sm:text-lg text-white bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] shadow-[0_8px_20px_rgba(230,0,122,0.35)] hover:shadow-[0_12px_28px_rgba(230,0,122,0.5)] active:scale-[0.99] transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 mt-1"
+                    className="w-full py-3.5 rounded-2xl border border-[#dbbfca] font-bold text-base sm:text-lg text-white bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] shadow-[0_8px_20px_rgba(230,0,122,0.35)] hover:shadow-[0_12px_28px_rgba(230,0,122,0.5)] active:scale-[0.99] transition-all flex items-center justify-center cursor-pointer disabled:opacity-50 mt-1"
                   >
                     {isSubmitting ? (
                       <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
@@ -392,7 +392,7 @@ export default function LoginPage() {
                         value={digit}
                         onChange={(e) => handleOtpChange(idx, e.target.value)}
                         onKeyDown={(e) => handleOtpKeyDown(idx, e)}
-                        className="w-14 sm:w-16 h-18 sm:h-20 text-center text-2xl sm:text-3xl font-bold bg-[#f3f4f5] border border-[#dbbfca] rounded-2xl shadow-sm text-[#1c1b1b] focus:bg-white focus:border-[#b20163] focus:ring-2 focus:ring-[#b20163]/20 outline-none transition-all"
+                        className="w-14 sm:w-16 h-18 sm:h-20 text-center text-2xl sm:text-3xl font-bold bg-[#f3f4f5] border border-[#dbbfca] rounded-lg shadow-sm text-[#1c1b1b] focus:bg-white focus:border-[#b20163] focus:ring-2 focus:ring-[#b20163]/20 outline-none transition-all"
                       />
                     ))}
                   </div>
@@ -417,11 +417,11 @@ export default function LoginPage() {
 
                   {error && <p className="text-xs text-red-600 font-semibold">{error}</p>}
 
-                  {/* Verify & Login Button */}
+                  {/* Verify & Login Button (Figma 1875:1554, Radius: 16px, Border: #DBBFCA) */}
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 rounded-full bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] text-white font-bold text-base sm:text-lg shadow-[0_8px_20px_rgba(230,0,122,0.35)] hover:shadow-[0_12px_28px_rgba(230,0,122,0.5)] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-1"
+                    className="w-full py-3.5 rounded-2xl border border-[#dbbfca] bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] text-white font-bold text-base sm:text-lg shadow-[0_8px_20px_rgba(230,0,122,0.35)] hover:shadow-[0_12px_28px_rgba(230,0,122,0.5)] active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 mt-1"
                   >
                     {isSubmitting ? (
                       <span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
