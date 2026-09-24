@@ -16,21 +16,23 @@ interface NavbarProps {
 }
 
 export function Navbar({ locale, onToggleLocale, variant = 'home', activeNav }: NavbarProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    if (variant === 'subpage') return;
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [variant]);
+
   if (variant === 'subpage') {
     return <SubpageNavbar locale={locale} onToggleLocale={onToggleLocale} activeNav={activeNav} />;
   }
 
   const t = translations[locale];
   const isAr = locale === 'ar';
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   return (
     <header
