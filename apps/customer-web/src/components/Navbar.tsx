@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Locale, translations } from '@/lib/translations';
 import { SubpageNavbar } from './SubpageNavbar';
+import { AuthModal } from './AuthModal';
+import { User, LogOut, ChevronDown, Ticket } from 'lucide-react';
 
 export { SubpageNavbar };
 
@@ -17,6 +19,43 @@ interface NavbarProps {
 
 export function Navbar({ locale, onToggleLocale, variant = 'home', activeNav }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<'customer' | 'operator'>('customer');
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [userDropdownOpen, setUserDropdownOpen] = useState(false);
+
+  useEffect(() => {
+    const syncUser = () => {
+      try {
+        const stored = localStorage.getItem('bus_arabia_user');
+        setCurrentUser(stored ? JSON.parse(stored) : null);
+      } catch (e) {
+        setCurrentUser(null);
+      }
+    };
+    syncUser();
+
+    const handleAuthChange = () => syncUser();
+    const handleOpenAuth = (e: any) => {
+      setAuthTab(e.detail?.tab || 'customer');
+      setAuthOpen(true);
+    };
+
+    window.addEventListener('auth-change', handleAuthChange);
+    window.addEventListener('open-auth', handleOpenAuth);
+
+    return () => {
+      window.removeEventListener('auth-change', handleAuthChange);
+      window.removeEventListener('open-auth', handleOpenAuth);
+    };
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('bus_arabia_user');
+    setCurrentUser(null);
+    setUserDropdownOpen(false);
+    window.dispatchEvent(new Event('auth-change'));
+  };
 
   useEffect(() => {
     if (variant === 'subpage') return;
@@ -35,7 +74,8 @@ export function Navbar({ locale, onToggleLocale, variant = 'home', activeNav }: 
   const isAr = locale === 'ar';
 
   return (
-    <header
+    <>
+      <header
       className={`fixed top-0 left-0 right-0 z-50 w-full transition-all duration-300 ${isScrolled
           ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-rose-100/60'
           : 'bg-transparent border-transparent'
@@ -132,17 +172,71 @@ export function Navbar({ locale, onToggleLocale, variant = 'home', activeNav }: 
               {t.nav.bookNow}
             </Link>
 
-            {/* Sign in / Sign up link matching Figma Frame 3090 (1574:3090) */}
-            <a
-              href="#login"
-              className="inline-flex items-center justify-center px-2 py-2 text-[14px] leading-[16.8px] tracking-[0.7px] font-['Inter',sans-serif] font-semibold text-[#B20163] hover:text-[#8c0047] transition-all cursor-pointer whitespace-nowrap"
-            >
-              {t.nav.signInSignUp}
-            </a>
+            {/* User Session or Sign in / Sign up CTA */}
+            {currentUser ? (
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setUserDropdownOpen(!userDropdownOpen)}
+                  className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-rose-50 border border-rose-200 text-xs font-bold text-[#b20163] hover:bg-rose-100 transition-all cursor-pointer"
+                >
+                  <span className="w-6 h-6 rounded-full bg-[#b20163] text-white flex items-center justify-center text-[10px] font-black">
+                    {currentUser.name ? currentUser.name.substring(0, 1).toUpperCase() : 'U'}
+                  </span>
+                  <span className="max-w-[90px] truncate">{currentUser.name || 'Account'}</span>
+                  <ChevronDown className="w-3.5 h-3.5" />
+                </button>
+
+                {userDropdownOpen && (
+                  <div className="absolute ltr:right-0 rtl:left-0 mt-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 py-1.5 z-50 animate-fadeIn">
+                    <div className="px-3.5 py-2 border-b border-slate-100 text-xs">
+                      <p className="font-extrabold text-slate-800 truncate">{currentUser.name}</p>
+                      <p className="text-[11px] text-slate-400 truncate">{currentUser.phone || currentUser.email}</p>
+                    </div>
+                    <Link
+                      href="/#search-box"
+                      onClick={() => setUserDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
+                    >
+                      <Ticket className="w-3.5 h-3.5 text-[#b20163]" />
+                      <span>{isAr ? 'حجوزاتي' : 'My Bookings'}</span>
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="w-full flex items-center gap-2 px-3.5 py-2 text-xs font-semibold text-rose-600 hover:bg-rose-50 transition-colors cursor-pointer text-left rtl:text-right"
+                    >
+                      <LogOut className="w-3.5 h-3.5" />
+                      <span>{isAr ? 'تسجيل الخروج' : 'Sign Out'}</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={() => {
+                  setAuthTab('customer');
+                  setAuthOpen(true);
+                }}
+                className="inline-flex items-center justify-center px-2 py-2 text-[14px] leading-[16.8px] tracking-[0.7px] font-['Inter',sans-serif] font-semibold text-[#B20163] hover:text-[#8c0047] transition-all cursor-pointer whitespace-nowrap"
+              >
+                {t.nav.signInSignUp}
+              </button>
+            )}
           </div>
         </div>
       </div>
     </header>
+
+    {/* Interactive Auth Modal */}
+    <AuthModal
+      isOpen={authOpen}
+      onClose={() => setAuthOpen(false)}
+      locale={locale}
+      initialTab={authTab}
+    />
+  </>
   );
 }
 

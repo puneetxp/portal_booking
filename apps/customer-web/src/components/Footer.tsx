@@ -316,6 +316,12 @@ export function Footer({ locale }: FooterProps) {
         ================================================== */}
         <a
           href="#operator-portal"
+          onClick={(e) => {
+            e.preventDefault();
+            if (typeof window !== 'undefined') {
+              window.dispatchEvent(new CustomEvent('open-auth', { detail: { tab: 'operator' } }));
+            }
+          }}
           className="absolute top-[370px] left-[825px] inline-flex items-center justify-between w-[200px] h-[34.07px] pl-[8.5px] pr-[8.5px] rounded-full bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] text-[#1c1b1b] shadow-xs hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer group"
           aria-label="Bus Operator Sign in / Sign up"
           title="Bus Operator Sign in / Sign up"

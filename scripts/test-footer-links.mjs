@@ -103,7 +103,7 @@ async function testFooterLinks() {
       'Samsung Pay', 'Apple Pay', 'Union Pay',
     ];
     for (const p of expectedPayments) {
-      const badge = footer.locator(`span[title="We accept ${p}"]`);
+      const badge = footer.locator(`[title="We accept ${p}"]`);
       assert((await badge.count()) > 0, `Payment badge tooltip for "${p}" exists`);
     }
 

@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Locale, translations } from '@/lib/translations';
 import { Lock, CheckCircle2, AlertCircle } from 'lucide-react';
+import { CheckoutModal } from './CheckoutModal';
 
 interface SeatMapPreviewProps {
   locale: Locale;
@@ -17,6 +18,7 @@ export function SeatMapPreview({ locale }: SeatMapPreviewProps) {
   const t = translations[locale];
   const [selectedSeats, setSelectedSeats] = useState<SelectedSeat[]>([{ id: '1C', fare: 165 }]);
   const [secondsLeft, setSecondsLeft] = useState(582); // 9m 42s
+  const [showCheckout, setShowCheckout] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -304,7 +306,8 @@ export function SeatMapPreview({ locale }: SeatMapPreviewProps) {
             {/* Checkout Action */}
             <div className="mt-6 space-y-3">
               <button
-                onClick={() => alert('Proceeding to instant payment gateway...')}
+                type="button"
+                onClick={() => setShowCheckout(true)}
                 disabled={selectedSeats.length === 0}
                 className="w-full bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 text-white font-extrabold py-4 px-6 rounded-2xl shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-2 text-sm transition-all cursor-pointer"
               >
@@ -316,6 +319,17 @@ export function SeatMapPreview({ locale }: SeatMapPreviewProps) {
           </div>
         </div>
       </div>
+
+      {/* Interactive Checkout Modal */}
+      <CheckoutModal
+        isOpen={showCheckout}
+        onClose={() => setShowCheckout(false)}
+        locale={locale}
+        seats={selectedSeats}
+        route={locale === 'ar' ? 'الرياض ➔ جدة' : 'Riyadh ➔ Jeddah'}
+        date="Fri, 25 Sep · 08:30 AM"
+        operator="SAPTCO VIP Express"
+      />
     </section>
   );
 }
