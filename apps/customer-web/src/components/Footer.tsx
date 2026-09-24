@@ -91,7 +91,7 @@ export function Footer({ locale }: FooterProps) {
 
   return (
     <footer
-      className="relative w-full max-w-[1280px] mx-auto h-[619px] overflow-hidden select-none bg-gradient-to-r from-[#950250] from-0% via-[#c2006d] via-[45%] to-[#fa1590] to-100% pt-[47px]"
+      className="relative w-full max-w-[1280px] mx-auto h-[619px] overflow-hidden select-none bg-gradient-to-r from-[#950250] from-0% via-[#c2006d] via-[45%] to-[#fa1590] to-100% border-t border-[#dbbfc9]/30 pt-[47px]"
       id="main-footer"
       dir={isAr ? 'rtl' : 'ltr'}
     >
@@ -99,7 +99,7 @@ export function Footer({ locale }: FooterProps) {
           MAIN WHITE FOOTER CARD (Figma Frame 2035:1436: 1132px x 417px)
           Position: centered in 1280px, x: 74px, y: 47px, rounded: 42px, bg: #fcf9f8
       ====================================================== */}
-      <div className="relative mx-auto w-[1132px] h-[417px] rounded-[42px] bg-[#fcf9f8] shadow-2xl">
+      <div className="relative mx-auto w-[1132px] h-[417px] rounded-[42px] bg-[#fcf9f8]">
         {/* =================================================
             COLUMN 1 — LOGO ASSET (278px x 109px) + SOCIAL ROW (y: 109px)
             Figma Company Info (2035:1437): x: 50px, y: 48px
@@ -142,44 +142,45 @@ export function Footer({ locale }: FooterProps) {
 
         {/* =================================================
             MIDDLE COLUMNS — REAL SEMANTIC HTML LINKS
-            Figma Frame 34 (2035:1453): x: 370px, y: 53px, gap: 48px
+            Figma Frame 34 (2035:1453): x: 370px, y: 53px, w: 372px, gap: 48px
+            Inside Frame 34: Company at x: 27.76px (card x: 397.76px), Information at x: 210px (card x: 580px)
         ================================================== */}
-        <div className="absolute top-[53px] left-[370px] flex items-start gap-[48px]">
-          {/* Column 2: Company */}
-          <div className="w-[134px]">
+        <div className="absolute top-[53px] left-[370px] w-[372px] flex justify-center items-start gap-[48px]">
+          {/* Column 2: Company (Figma Container 2035:1454: w: 134.24px) */}
+          <div className="w-[134.24px] shrink-0">
             <h4
-              className="text-[20.88px] font-bold text-[#1c1b1b] leading-[25.06px] mb-[17.6px]"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="text-[20.88px] font-bold text-[#1c1b1b] leading-[25.06px] mb-[16.41px] tracking-normal"
+              style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
             >
               {t.footer.company}
             </h4>
 
             <ul
-              className="flex flex-col gap-[17.9px] text-[17.9px] font-medium text-[#554149] leading-[21.48px]"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="flex flex-col gap-[17.9px] text-[17.9px] font-medium text-[#554149] leading-[21.48px] tracking-normal"
+              style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
             >
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/about"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="About Us"
                 >
                   {t.footer.aboutUs}
                 </Link>
               </li>
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/contact"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="Contact Us"
                 >
                   {t.footer.contactUs}
                 </Link>
               </li>
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/faq"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="FAQ"
                 >
                   {t.footer.faq}
@@ -188,41 +189,48 @@ export function Footer({ locale }: FooterProps) {
               <li className="leading-[21.48px]">
                 <Link
                   href="/operators"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors inline-block w-[134px]"
                   aria-label="Our Bus Operators"
                 >
-                  {t.footer.ourBusOperators}
+                  {isAr ? (
+                    t.footer.ourBusOperators
+                  ) : (
+                    <>
+                      Our Bus<br />
+                      Operators
+                    </>
+                  )}
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Column 3: Information */}
-          <div className="w-[160px]">
+          {/* Column 3: Information (Figma Container 2035:1466: w: 134.24px) */}
+          <div className="w-[134.24px] shrink-0">
             <h4
-              className="text-[20.88px] font-bold text-[#1c1b1b] leading-[25.06px] mb-[17.6px]"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="text-[20.88px] font-bold text-[#1c1b1b] leading-[25.06px] mb-[16.41px] tracking-normal"
+              style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
             >
               {t.footer.information}
             </h4>
 
             <ul
-              className="flex flex-col gap-[17.9px] text-[17.9px] font-medium text-[#554149] leading-[21.48px]"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
+              className="flex flex-col gap-[17.9px] text-[17.9px] font-medium text-[#554149] leading-[21.48px] tracking-normal"
+              style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
             >
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/privacy"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="Privacy Policy"
                 >
                   {t.footer.privacyPolicy}
                 </Link>
               </li>
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/terms"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="Terms of Service"
                 >
                   {t.footer.termsOfService}
@@ -231,16 +239,24 @@ export function Footer({ locale }: FooterProps) {
               <li className="leading-[21.48px]">
                 <Link
                   href="/cancellation-policy"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors inline-block w-[134px]"
                   aria-label="Cancellation, Modification & Refund Policy"
                 >
-                  {t.footer.cancellationPolicy}
+                  {isAr ? (
+                    t.footer.cancellationPolicy
+                  ) : (
+                    <>
+                      Cancellation,<br />
+                      Modification &amp;<br />
+                      Refund Policy
+                    </>
+                  )}
                 </Link>
               </li>
-              <li>
+              <li className="h-[22px] flex items-center">
                 <Link
                   href="/cookie-policy"
-                  className="hover:text-[#b20163] transition-colors"
+                  className="hover:text-[#b20163] transition-colors whitespace-nowrap"
                   aria-label="Cookie Policy"
                 >
                   {t.footer.cookiePolicy}
@@ -256,8 +272,8 @@ export function Footer({ locale }: FooterProps) {
         ================================================== */}
         <div className="absolute top-[48px] left-[821px] w-[273px]">
           <h4
-            className="text-[20px] font-semibold text-[#550036] uppercase leading-[16.8px] mb-[28px] tracking-[0.5px]"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            className="text-[20px] font-semibold text-[#550036] uppercase leading-[16.8px] mb-[28px]"
+            style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
           >
             {t.footer.weAccept}
           </h4>
@@ -285,7 +301,7 @@ export function Footer({ locale }: FooterProps) {
                   className={`mt-[4px] font-semibold text-[#1c1b1b] text-center leading-[17px] tracking-tight uppercase whitespace-nowrap ${
                     card.small ? 'text-[8px]' : 'text-[10px]'
                   }`}
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                  style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
                 >
                   {card.label}
                 </span>
@@ -306,7 +322,7 @@ export function Footer({ locale }: FooterProps) {
         >
           <span
             className="text-[10.48px] font-semibold whitespace-nowrap text-[#1c1b1b] leading-[15.72px]"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+            style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
           >
             {t.footer.operatorLogin}
           </span>
@@ -322,18 +338,18 @@ export function Footer({ locale }: FooterProps) {
 
       {/* =====================================================
           REAL COPYRIGHT & UNIFIED NATIONAL NUMBER TEXT
-          Figma Frame 3640 (2137:5503): x: 380.5px, y: 499px, w: 519px, h: 78px
+          Figma Frame 3640 (2137:5503): x: 380.5px, y: 499px, w: 519px, h: 78px, itemSpacing: 22px
       ====================================================== */}
-      <div className="absolute top-[499px] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center text-center text-white space-y-[6px]">
+      <div className="absolute top-[499px] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center text-center text-white space-y-[22px]">
         <p
-          className="text-[16.29px] font-semibold tracking-wide text-white leading-[20px] whitespace-nowrap"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+          className="text-[16.29px] font-semibold text-white leading-[20.01px] whitespace-nowrap"
+          style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
         >
           {t.footer.copyright}
         </p>
         <p
-          className="text-[16.29px] font-semibold tracking-wider text-white leading-[20px] whitespace-nowrap"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+          className="text-[16.29px] font-semibold text-white leading-[20.01px] whitespace-nowrap"
+          style={{ fontFamily: isAr ? "'Cairo', sans-serif" : "'Montserrat', sans-serif" }}
         >
           {t.footer.unifiedNumber}
         </p>
