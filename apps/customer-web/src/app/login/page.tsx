@@ -220,8 +220,8 @@ export default function LoginPage() {
           <div className="h-4" />
         </div>
 
-        {/* RIGHT SECTION: The Dialog (Full Height Panel directly anchored on the Right Edge of the screen) */}
-        <div className="w-full lg:w-[500px] xl:w-[520px] lg:fixed lg:right-0 lg:top-0 lg:bottom-0 lg:h-screen bg-[#fcf9f8] border-l border-[#dbbfca]/60 shadow-2xl p-7 sm:p-10 flex flex-col justify-between overflow-y-auto z-40">
+        {/* RIGHT SECTION: The Dialog (Anchored on the Right with exact Figma Frame 3520 margins: Top: 15px, Right: 16px, Bottom: 15px) */}
+        <div className="w-full lg:w-[500px] xl:w-[520px] lg:fixed lg:right-4 lg:top-3.5 lg:bottom-3.5 lg:h-[calc(100vh-28px)] max-h-[828px] bg-[#fcf9f8] rounded-3xl border border-[#dbbfca]/60 shadow-2xl p-7 sm:p-9 lg:p-10 flex flex-col justify-between overflow-y-auto z-40">
           
           <div className="flex-1 flex flex-col justify-center items-center text-center my-auto pt-4 pb-4">
             {/* Bus Arabia Ticket Logo (Figma 1694:61) */}

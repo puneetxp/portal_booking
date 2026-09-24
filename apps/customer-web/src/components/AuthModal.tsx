@@ -142,12 +142,12 @@ export function AuthModal({ isOpen, onClose, locale }: AuthModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-[999] flex justify-end bg-black/55 backdrop-blur-sm animate-fadeIn"
+      className="fixed inset-0 z-[999] flex items-center justify-end p-3 sm:p-4 bg-black/55 backdrop-blur-sm animate-fadeIn"
       onClick={onClose}
     >
-      {/* Full-Height Right Panel matching Figma Frame 3520 (Height: 100%, Width: 520px, Background: #FCF9F8) */}
+      {/* Floating Right Card matching Figma Frame 3520 (Top: 15px, Right: 16px, Bottom: 15px, Width: 520px, Height: 808px, Radius: 24px) */}
       <div
-        className="relative w-full max-w-[500px] lg:max-w-[520px] h-full min-h-screen bg-[#fcf9f8] shadow-2xl border-l rtl:border-l-0 rtl:border-r border-[#dbbfca]/60 overflow-y-auto font-['Montserrat',sans-serif] flex flex-col justify-between p-6 sm:p-9 lg:p-10 animate-slideInRight"
+        className="relative w-full max-w-[500px] lg:max-w-[520px] h-[calc(100vh-28px)] max-h-[828px] bg-[#fcf9f8] rounded-3xl shadow-2xl border border-[#dbbfca]/60 overflow-y-auto font-['Montserrat',sans-serif] flex flex-col justify-between p-6 sm:p-8 lg:p-10 animate-slideInRight"
         onClick={(e) => e.stopPropagation()}
         dir={isAr ? 'rtl' : 'ltr'}
       >
