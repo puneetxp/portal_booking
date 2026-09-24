@@ -52,7 +52,7 @@ export default function HomePage() {
       {/* 1. Header / Navbar (Frame 3364 / 1574:3058) */}
       <Navbar locale={locale} onToggleLocale={toggleLocale} />
 
-      <main className="flex-1">
+      <main className="flex-1 flex flex-col gap-[85px] w-full max-w-[1280px] mx-auto pb-[120px]">
         {/* 2. Hero Section & 8-Tab Search Box (Figma Frame 3439 + Overlay 1574:3352) */}
         <HeroSearch locale={locale} onSearch={handleSearch} />
 

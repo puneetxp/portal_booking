@@ -3,7 +3,6 @@
 import React from 'react';
 import Image from 'next/image';
 import { Locale, translations } from '@/lib/translations';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
 
 interface MakkahPackagesProps {
   locale: Locale;
@@ -13,78 +12,67 @@ export function MakkahPackages({ locale }: MakkahPackagesProps) {
   const t = translations[locale];
   const isAr = locale === 'ar';
 
+  /*
+   * Figma: Group 8 (1884:259) — deepest layer analysis
+   * ─────────────────────────────────────────────────────
+   * The true source image lives inside Rectangle nodes 1884:261 / 1884:263
+   * (fill_1peukxw, scaleMode FIT). It is a single 2098×750 px composited PNG
+   * that already contains:
+   *   • Dark maroon background with Arabic geometric pattern (left panel)
+   *   • Kaaba photo (top-right) + Madinah mosque photo (bottom-right)
+   *   • Gold gradient text "MAKKAH & MADINAH PACKAGES"
+   *   • White subtitle + gold pill button
+   *
+   * The two "Bus Fleet" frames (1884:260, 1884:262) are identical stacked
+   * copies of this image, rotated 180° with a dark overlay + drop-shadow.
+   * The "Background+Shadow" frame (1884:264) adds only the left-side magenta
+   * gradient and positions the text/button absolutely on top.
+   *
+   * → The banner image MUST come from banner-makkah-figma.png (the raw
+   *   Rectangle fill), NOT banner-makkah.png (which was missing the Arabic
+   *   pattern and had ghost text bleed-through from the duplicate layer).
+   *
+   * Container: 1140×408 px  |  border-radius: 16px  |  shadow: 0 4px 8px rgba(0,0,0,0.21)
+   */
+
+  // For Arabic locale the button arrow flips; image object-position stays right.
+  const bannerSrc = isAr ? '/images/banner-makkah-ar.png' : '/images/banner-makkah-figma.png';
+
   return (
-    <section className="py-8 sm:py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="relative rounded-2xl sm:rounded-[32px] overflow-hidden shadow-2xl bg-gradient-to-r from-[#6e0037] via-[#8c0047] to-[#b20163] text-white border border-rose-950/20 group min-h-[360px] sm:min-h-[420px] lg:min-h-[460px]">
-        {/* Background Visual Asset Layer (Holy Kaaba & Prophet's Mosque) */}
-        <div
-          className={`absolute inset-y-0 ${
-            isAr ? 'left-0' : 'right-0'
-          } w-full lg:w-[64%] h-full overflow-hidden`}
-        >
-          <Image
-            src="/images/test-261.png"
-            alt="Holy Kaaba and Prophet's Mosque"
-            fill
-            className={`object-cover ${
-              isAr ? 'object-left -scale-x-100' : 'object-right'
-            } select-none opacity-90 group-hover:scale-[1.02] transition-transform duration-700`}
-            priority
-          />
+    <section className="w-full max-w-[1140px] mx-auto px-4 lg:px-0 my-10 sm:my-14 lg:my-16">
+      {/* Figma: 1140×408, corner-radius 16px (not 40px!), shadow 0 4 8 */}
+      <div
+        className="relative w-full overflow-hidden group"
+        style={{
+          aspectRatio: '1140 / 408',
+          borderRadius: '16px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.21)',
+        }}
+      >
+        {/* The composited banner — already contains BG pattern, photos, text & button */}
+        <Image
+          src={bannerSrc}
+          alt={isAr ? 'باقات مكة والمدينة' : 'Makkah & Madinah Packages'}
+          fill
+          priority
+          sizes="(max-width: 768px) 100vw, 1140px"
+          className="object-cover object-left select-none transition-transform duration-700 group-hover:scale-[1.02]"
+        />
 
-          {/* Solid gradient covering the text side so only the holy sanctuary photo shines through */}
-          <div
-            className={`absolute inset-0 ${
-              isAr
-                ? 'bg-gradient-to-l from-[#6e0037] from-35% via-[#8c0047] via-55% to-transparent'
-                : 'bg-gradient-to-r from-[#6e0037] from-35% via-[#8c0047] via-55% to-transparent'
-            }`}
-          />
-        </div>
+        {/* Accessible CTA — invisible hotspot over the button in the image */}
+        <a
+          href="#search-box"
+          className={`absolute bottom-[8%] ${isAr ? 'right-[4.5%]' : 'left-[4.5%]'} w-[23%] h-[13%] rounded-full opacity-0 focus:opacity-100 focus:ring-4 focus:ring-amber-300 z-10`}
+          aria-label={t.makkahBanner.cta}
+        />
 
-        {/* Foreground Content Layer */}
-        <div
-          className={`relative z-10 py-10 sm:py-12 lg:py-16 px-6 sm:px-10 lg:px-14 flex flex-col justify-center min-h-[360px] sm:min-h-[420px] lg:min-h-[460px] max-w-[600px] ${
-            isAr ? 'ml-auto text-right items-end' : 'text-left items-start'
-          }`}
-        >
-          {/* Title */}
-          <h2
-            className={`uppercase font-black italic leading-[0.95] tracking-tight text-3xl sm:text-4xl lg:text-5xl ${
-              isAr ? 'font-sans' : "font-['Montserrat',sans-serif]"
-            }`}
-          >
-            <span className="block text-[#ffe76a] drop-shadow-sm">
-              {t.makkahBanner.title}
-            </span>
-          </h2>
-
-          {/* Subtitle */}
-          <p
-            className={`mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-white font-medium leading-snug max-w-[460px] ${
-              isAr ? 'font-sans' : "font-['Montserrat',sans-serif]"
-            }`}
-          >
-            {t.makkahBanner.subtitle}
-          </p>
-
-          {/* CTA */}
-          <a
-            href="#search-box"
-            className="mt-6 inline-flex items-center gap-3 px-5 sm:px-7 py-3 rounded-full bg-gradient-to-r from-[#ffe76a] via-[#ffe98a] to-[#d9b747] text-[#181818] font-bold text-sm sm:text-base shadow-lg hover:shadow-xl hover:scale-105 transition-all w-fit group/btn cursor-pointer"
-            aria-label={t.makkahBanner.title}
-          >
-            <span>{t.makkahBanner.cta}</span>
-            <div className="w-7 h-7 rounded-full bg-[#1c1b1b] text-[#ffe76a] flex items-center justify-center transition-transform group-hover/btn:translate-x-1 rtl:group-hover/btn:-translate-x-1">
-              {isAr ? (
-                <ArrowLeft className="w-4 h-4" />
-              ) : (
-                <ArrowRight className="w-4 h-4" />
-              )}
-            </div>
-          </a>
+        {/* SEO semantic text (screen-reader only) */}
+        <div className="sr-only">
+          <h2>{t.makkahBanner.title}</h2>
+          <p>{t.makkahBanner.subtitle}</p>
         </div>
       </div>
     </section>
   );
 }
+

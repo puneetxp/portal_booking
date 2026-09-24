@@ -12,10 +12,17 @@
     "dev:admin": "npm run dev --workspace=apps/admin-web",
     "dev:api": "npm run start:dev --workspace=apps/api",
     "build": "npm run build --workspaces --if-present",
-    "lint": "npm run lint --workspaces --if-present"
+    "lint": "npm run lint --workspaces --if-present",
+    "test:visual": "node scripts/visual-diff.mjs",
+    "test:footer": "node scripts/test-footer-links.mjs"
   },
   "devDependencies": {
-    "typescript": "^5.6.3",
-    "prettier": "^3.3.3"
+    "@types/pixelmatch": "^5.2.6",
+    "@types/pngjs": "^6.0.5",
+    "pixelmatch": "^7.2.0",
+    "playwright": "^1.63.0",
+    "pngjs": "^7.0.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.6.3"
   }
 }

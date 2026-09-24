@@ -240,7 +240,7 @@ export const translations: Record<Locale, TranslationDictionary> = {
       cookiePolicy: 'Cookie Policy',
       weAccept: 'We accept',
       operatorLogin: 'Bus Operator Sign in / Sign up',
-      copyright: 'Copyright (c) BUS ARABIA Company LLC. All Rights Reserved',
+      copyright: 'Copyright © BUS ARABIA Company LLC. All Rights Reserved',
       unifiedNumber: 'Unified National Number: 7054393199',
     },
   },

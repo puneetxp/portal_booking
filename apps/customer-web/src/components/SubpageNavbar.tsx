@@ -100,13 +100,18 @@ export function SubpageNavbar({
               <button
                 onClick={onToggleLocale}
                 type="button"
-                className="flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-full border border-slate-200/90 bg-[#fcf9f8] hover:bg-white text-xs font-semibold text-[#554149] cursor-pointer shadow-xs transition-all hover:border-[#b20163]/30"
+                className="inline-flex items-center justify-center gap-[9px] w-[119px] h-[41px] rounded-full border border-[#dbc0c9] bg-[#fff8f8] hover:bg-white text-xs font-semibold text-[#554149] cursor-pointer shadow-[0_4px_4px_rgba(0,0,0,0.08)] backdrop-blur-[50px] transition-all flex-shrink-0"
                 title="Toggle Language"
               >
-                <span className="w-5 h-3.5 bg-[#137a08] rounded-[2px] inline-flex items-center justify-center text-[9px] text-white font-bold leading-none shadow-xs">
-                  🇸🇦
-                </span>
-                <span className="font-['Montserrat',sans-serif] font-semibold text-xs text-[#554149]">
+                <div className="relative w-[28px] h-[19.25px] flex-shrink-0 overflow-hidden rounded-[3px] shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+                  <Image
+                    src={isAr ? '/icons/uk-flag.svg' : '/icons/saudi-flag.svg'}
+                    alt={isAr ? 'English' : 'Saudi Arabia Flag'}
+                    fill
+                    className="object-contain"
+                  />
+                </div>
+                <span className="font-['Montserrat',sans-serif] font-semibold text-[12px] text-[#554149] tracking-[0.7px]">
                   {isAr ? 'English' : 'العربية'}
                 </span>
               </button>

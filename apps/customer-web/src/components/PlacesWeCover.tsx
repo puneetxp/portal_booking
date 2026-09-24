@@ -1,9 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { Locale, translations } from '@/lib/translations';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface PlacesWeCoverProps {
   locale: Locale;
@@ -15,6 +14,8 @@ export function PlacesWeCover({ locale, onSelectPlace }: PlacesWeCoverProps) {
   const isAr = locale === 'ar';
   const [activeSlide, setActiveSlide] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportWidth, setViewportWidth] = useState<number>(1092.25);
 
   const destinations = [
     {
@@ -45,7 +46,7 @@ export function PlacesWeCover({ locale, onSelectPlace }: PlacesWeCoverProps) {
       city: isAr ? 'مكة المكرمة' : 'Makkah',
       country: isAr ? 'المملكة العربية السعودية' : 'Saudi Arabia',
       price: isAr ? 'ابتداءً من 40 ﷼' : 'From 40 SAR',
-      image: '/images/pure-photo-jeddah.png',
+      image: '/images/makkah-kaaba.png',
     },
     {
       city: isAr ? 'الدمام' : 'Dammam',
@@ -59,154 +60,185 @@ export function PlacesWeCover({ locale, onSelectPlace }: PlacesWeCoverProps) {
       price: isAr ? 'ابتداءً من 35 ﷼' : 'From 35 SAR',
       image: '/images/pure-photo-amman.png',
     },
+    {
+      city: isAr ? 'الخبر' : 'Khobar',
+      country: isAr ? 'المملكة العربية السعودية' : 'Saudi Arabia',
+      price: isAr ? 'ابتداءً من 50 ﷼' : 'From 50 SAR',
+      image: '/images/pure-photo-jeddah.png',
+    },
   ];
 
+  // Append first 4 destinations to enable smooth sliding across all 8 dots while keeping a grid of 4
+  const displayDestinations = [...destinations, ...destinations.slice(0, 4)];
+  const totalSlides = destinations.length; // 8 slides matching Frame 3437 (1574:3179)
+
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 640) setItemsPerView(1);
-      else if (window.innerWidth < 1024) setItemsPerView(2);
-      else setItemsPerView(4);
+    const updateDimensions = () => {
+      if (typeof window !== 'undefined') {
+        if (window.innerWidth < 640) setItemsPerView(1);
+        else if (window.innerWidth < 1024) setItemsPerView(2);
+        else setItemsPerView(4);
+
+        if (viewportRef.current) {
+          setViewportWidth(viewportRef.current.clientWidth);
+        }
+      }
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
-  const maxSlide = Math.max(0, destinations.length - itemsPerView);
-
   const handlePrev = () => {
-    setActiveSlide((prev) => (prev > 0 ? prev - 1 : maxSlide));
+    setActiveSlide((prev) => (prev > 0 ? prev - 1 : totalSlides - 1));
   };
 
   const handleNext = () => {
-    setActiveSlide((prev) => (prev < maxSlide ? prev + 1 : 0));
+    setActiveSlide((prev) => (prev < totalSlides - 1 ? prev + 1 : 0));
   };
 
+  // Gap between cards in Figma Frame 3415 is 24.52px
+  const gap = 24.52;
+  // Exact card width calculation so that itemsPerView cards fit precisely within the viewport with zero clipping
+  const cardWidth = Math.max(200, (viewportWidth - (itemsPerView - 1) * gap) / itemsPerView);
+  const slideStep = cardWidth + gap;
+  const currentOffset = activeSlide * slideStep;
+
   return (
-    <section className="py-14 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Section Header with Ornamental Gold Lines matching Frame 3681 */}
-      <div className="w-full text-center mx-auto mb-10 sm:mb-12 px-4">
+    <section className="w-full max-w-[1280px] mx-auto py-8 flex flex-col justify-between px-4 sm:px-6">
+      {/* Section Header with Ornamental Gold Lines matching Frame 3433 (1574:3105) */}
+      <div className="w-full text-center mx-auto mb-6">
         <div className="flex items-center justify-center gap-3 sm:gap-5 lg:gap-7">
-          {/* Left Line */}
-          <div className="flex-1 max-w-[200px] sm:max-w-[260px] flex items-center justify-end">
-            <div className="h-[2px] flex-1 bg-gradient-to-r from-transparent via-[#d8b93c] to-[#d8b93c]" />
-            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#d8b93c] shrink-0" />
+          {/* Left Line Frame 3431 */}
+          <div className="flex-1 max-w-[200px] sm:max-w-[279px] flex items-center justify-end">
+            <div className="h-[3px] flex-1 bg-gradient-to-r from-transparent via-[#ffe26d] to-[#d9b747] rounded-full" />
+            <span className="w-3 h-3 rounded-full bg-gradient-to-r from-[#ffe26d] to-[#d9b747] shrink-0 ml-1" />
           </div>
 
-          {/* Title */}
+          {/* Title PLACES We Cover (1574:3111) */}
           <h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-black italic uppercase tracking-tight leading-none bg-gradient-to-b from-[#ff1493] via-[#d90075] to-[#990052] bg-clip-text text-transparent px-2"
-            style={{ fontFamily: "'Barlow Semi Condensed', sans-serif" }}
+            className="text-3xl sm:text-5xl lg:text-[64px] font-bold italic uppercase tracking-tight leading-[48px] bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] bg-clip-text text-transparent px-3 font-['Montserrat',sans-serif]"
           >
             {t.places.title}
           </h2>
 
-          {/* Right Line */}
-          <div className="flex-1 max-w-[200px] sm:max-w-[260px] flex items-center justify-start">
-            <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#d8b93c] shrink-0" />
-            <div className="h-[2px] flex-1 bg-gradient-to-l from-transparent via-[#d8b93c] to-[#d8b93c]" />
+          {/* Right Line Frame 3430 */}
+          <div className="flex-1 max-w-[200px] sm:max-w-[279px] flex items-center justify-start">
+            <span className="w-3 h-3 rounded-full bg-gradient-to-r from-[#ffe26d] to-[#d9b747] shrink-0 mr-1" />
+            <div className="h-[3px] flex-1 bg-gradient-to-l from-transparent via-[#ffe26d] to-[#d9b747] rounded-full" />
           </div>
         </div>
 
-        {/* Subtitle */}
-        <p
-          className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg leading-relaxed text-[#51444b] font-medium max-w-2xl mx-auto"
-          style={{ fontFamily: "'Barlow Semi Condensed', sans-serif" }}
-        >
+        {/* Subtitle (1574:3118) */}
+        <p className="mt-3 text-xs sm:text-sm lg:text-[18px] leading-[28.8px] text-[#554149] font-normal max-w-2xl mx-auto font-['Inter',sans-serif]">
           {t.places.subtitle}
         </p>
       </div>
 
-      {/* Cards Slider Container with Navigation Buttons */}
-      <div className="relative">
-        {/* Left Arrow Button */}
+      {/* Cards Slider Container with Navigation Buttons (Frame 3434: 1246px x 452.75px) */}
+      <div className="w-full max-w-[1246px] mx-auto flex items-center justify-between gap-3 lg:gap-[21px]">
+        {/* Left Arrow Button matching Frame 1875:1807 (55.65px x 55.65px) */}
         <button
           onClick={isAr ? handleNext : handlePrev}
           type="button"
-          className="absolute -left-3 sm:-left-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#b20163] text-white flex items-center justify-center shadow-lg hover:bg-[#960153] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          className="w-[46px] sm:w-[55.65px] h-[46px] sm:h-[55.65px] rounded-full bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] border border-[#dbc0c9] shadow-[0_1px_2px_rgba(0,0,0,0.05)] text-white flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition-all cursor-pointer z-10"
           aria-label="Previous Destination"
         >
-          <ChevronLeft className="w-5 h-5 rtl:rotate-180" />
+          <img
+            src="/icons/figma/1875-1809.svg"
+            alt=""
+            width={12}
+            height={20}
+            className="rtl:rotate-180"
+          />
         </button>
 
-        {/* Carousel Viewport */}
-        <div className="overflow-hidden w-full py-2">
+        {/* Carousel Viewport (Frame 3415 - 1092.25px max width x 452.75px height) */}
+        <div ref={viewportRef} className="overflow-hidden w-full max-w-[1092.25px] h-[453px]">
           <div
             className="flex transition-transform duration-500 ease-out"
             style={{
-              transform: `translateX(${isAr ? '' : '-'}${activeSlide * (100 / itemsPerView)}%)`,
+              gap: `${gap}px`,
+              transform: `translateX(${isAr ? '' : '-'}${currentOffset}px)`,
             }}
           >
-            {destinations.map((item, idx) => (
+            {displayDestinations.map((item, idx) => (
               <div
                 key={idx}
-                style={{ width: `${100 / itemsPerView}%` }}
-                className="shrink-0 px-2.5 sm:px-3"
+                onClick={() => onSelectPlace(item.city)}
+                style={{
+                  width: `${cardWidth}px`,
+                }}
+                className="h-[452.75px] shrink-0 relative rounded-[30.2px] overflow-hidden shadow-[0_18.86px_37.73px_-9.43px_rgba(0,0,0,0.08),0_9.43px_18.86px_-4.72px_rgba(0,0,0,0.05)] cursor-pointer group select-none"
               >
+                {/* Layer 1: Full Card Destination Image (Figma 1875:1812) */}
+                <Image
+                  src={item.image}
+                  alt={`${item.city} - ${item.country}`}
+                  fill
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  priority={idx < 4}
+                />
+
+                {/* Layer 2: Top Floating Gold Badge (Figma Frame 3551 / 1884:206: 147.85px x 36.89px) */}
                 <div
-                  onClick={() => onSelectPlace(item.city)}
-                  className="group relative rounded-[28px] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-300 cursor-pointer border border-slate-100 bg-white flex flex-col h-full"
+                  className={`absolute top-[12.6px] ${
+                    isAr ? 'left-[12px]' : 'right-[12px]'
+                  } z-20 w-[130px] sm:w-[147.85px] h-[34px] sm:h-[36.89px] rounded-full bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] text-[#550036] font-['Inter',sans-serif] font-bold text-xs sm:text-[18px] shadow-[0_4.47px_13.42px_rgba(0,0,0,0.1)] flex items-center justify-center leading-none`}
                 >
-                  {/* Layer 1: Top Floating Gold Badge (Figma Frame 3551 / 1884:206) */}
-                  <div
-                    className={`absolute top-4 ${
-                      isAr ? 'left-4' : 'right-4'
-                    } z-20 px-3.5 sm:px-4 py-1.5 rounded-full bg-gradient-to-r from-[#ffe26d] via-[#fdea9d] to-[#d9b747] text-[#550036] font-['Inter',sans-serif] font-bold text-xs sm:text-[13px] shadow-[0_4px_10px_rgba(0,0,0,0.15)]`}
-                  >
-                    {item.price}
-                  </div>
+                  {item.price}
+                </div>
 
-                  {/* Layer 2: Raw Destination Image (Figma 1875:1812) */}
-                  <div className="relative h-[270px] sm:h-[300px] w-full overflow-hidden bg-slate-100">
-                    <Image
-                      src={item.image}
-                      alt={`${item.city} - ${item.country}`}
-                      fill
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500 select-none"
-                      priority={idx < 4}
-                    />
-                  </div>
-
-                  {/* Layer 3: Bottom Magenta City Bar (Figma Container 1875:1813) */}
-                  <div className="bg-gradient-to-r from-[#9e005c] via-[#d50072] to-[#f20b82] py-3 px-4 text-center rounded-b-[28px] flex flex-col items-center justify-center min-h-[72px] z-10 transition-all duration-300 group-hover:from-[#8f0053] group-hover:via-[#c80069] group-hover:to-[#e9007b]">
-                    <h3 className="text-white font-['Montserrat',sans-serif] font-bold text-xl sm:text-[22px] leading-tight tracking-wide">
-                      {item.city}
-                    </h3>
-                    <p className="text-white/90 font-['Inter',sans-serif] font-medium text-xs sm:text-[13px] leading-tight mt-0.5">
-                      {item.country}
-                    </p>
-                  </div>
+                {/* Layer 3: Bottom Floating Magenta City Bar (Figma Container 1875:1813: 254.67px x 72.63px) */}
+                <div className="absolute bottom-0 inset-x-0 w-full h-[72.63px] bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] backdrop-blur-[51.7px] flex flex-col items-center justify-center z-10 transition-all duration-300 rounded-b-[30.2px]">
+                  <h3 className="text-white font-['Montserrat',sans-serif] font-bold text-[24px] sm:text-[28px] lg:text-[32px] leading-tight tracking-wide">
+                    {item.city}
+                  </h3>
+                  <p className="text-white/95 font-['Inter',sans-serif] font-semibold text-[14px] sm:text-[16px] lg:text-[20px] leading-tight mt-0.5">
+                    {item.country}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Right Arrow Button */}
+        {/* Right Arrow Button matching Frame 1875:1853 (55.65px x 55.65px) */}
         <button
           onClick={isAr ? handlePrev : handleNext}
           type="button"
-          className="absolute -right-3 sm:-right-6 top-1/2 -translate-y-1/2 z-30 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-[#b20163] text-white flex items-center justify-center shadow-lg hover:bg-[#960153] hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          className="w-[46px] sm:w-[55.65px] h-[46px] sm:h-[55.65px] rounded-full bg-gradient-to-r from-[#950250] via-[#c2006d] to-[#fa1590] border border-[#dbc0c9] shadow-[0_1px_2px_rgba(0,0,0,0.05)] text-white flex items-center justify-center shrink-0 hover:scale-105 active:scale-95 transition-all cursor-pointer z-10"
           aria-label="Next Destination"
         >
-          <ChevronRight className="w-5 h-5 rtl:rotate-180" />
+          <img
+            src="/icons/figma/1875-1864.svg"
+            alt=""
+            width={12}
+            height={20}
+            className="rtl:rotate-180"
+          />
         </button>
       </div>
 
-      {/* Pagination Dots from Frame 3681 */}
-      <div className="flex items-center justify-center gap-2 mt-8">
-        {Array.from({ length: maxSlide + 1 }).map((_, dot) => (
-          <button
-            key={dot}
-            type="button"
-            onClick={() => setActiveSlide(dot)}
-            className={`h-2 rounded-full transition-all cursor-pointer ${
-              activeSlide === dot ? 'w-6 bg-[#b20163]' : 'w-2 bg-slate-200 hover:bg-slate-300'
-            }`}
-            aria-label={`Go to slide ${dot + 1}`}
-          />
-        ))}
+      {/* Pagination Indicator Dots (Figma Frame 3437 / 1574:3179: 8 dots, 13x13px each, gap 8px) */}
+      <div className="flex items-center justify-center gap-[8px] mt-6">
+        {Array.from({ length: totalSlides }).map((_, dot) => {
+          const isActive = dot === activeSlide;
+          return (
+            <button
+              key={dot}
+              type="button"
+              onClick={() => setActiveSlide(dot)}
+              className={`w-[13px] h-[13px] rounded-full transition-all cursor-pointer ${
+                isActive ? 'bg-[#B20163] scale-110' : 'bg-[#D9D9D9] hover:bg-[#c4c4c4]'
+              }`}
+              aria-label={`Go to slide ${dot + 1}`}
+            />
+          );
+        })}
       </div>
     </section>
   );
 }
+
